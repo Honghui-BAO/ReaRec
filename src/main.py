@@ -12,6 +12,7 @@ import torch
 sys.path.append("..")
 
 from helpers import *
+from helpers.LETTERReader import LETTERReader
 from models import *
 from utils import utils
 
@@ -48,6 +49,12 @@ def parse_global_args(parser):
         default=0,
         help="Whether to regenerate intermediate files",
     )
+    parser.add_argument(
+        "--use_letter_reader",
+        type=int,
+        default=0,
+        help="Whether to use LETTER data reader instead of BaseReader",
+    )
     return parser
 
 
@@ -81,14 +88,19 @@ def main():
     logging.info("Device: {}".format(args.device))
 
     # Read data
-    corpus_path = os.path.join(args.path, args.dataset, model_name.reader + ".pkl")
-    if not args.regenerate and os.path.exists(corpus_path):
-        logging.info("Load corpus from {}".format(corpus_path))
-        corpus = pickle.load(open(corpus_path, "rb"))
+    if args.use_letter_reader:
+        # Use LETTER reader for JSON format data
+        corpus = LETTERReader(args)
     else:
-        corpus = reader_name(args)
-        logging.info("Save corpus to {}".format(corpus_path))
-        pickle.dump(corpus, open(corpus_path, "wb"))
+        # Use original reader for CSV format data
+        corpus_path = os.path.join(args.path, args.dataset, model_name.reader + ".pkl")
+        if not args.regenerate and os.path.exists(corpus_path):
+            logging.info("Load corpus from {}".format(corpus_path))
+            corpus = pickle.load(open(corpus_path, "rb"))
+        else:
+            corpus = reader_name(args)
+            logging.info("Save corpus to {}".format(corpus_path))
+            pickle.dump(corpus, open(corpus_path, "wb"))
 
     # Define model
     model = model_name(args, corpus).to(args.device)
