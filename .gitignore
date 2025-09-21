@@ -1,0 +1,80 @@
+# --- 操作系统生成文件 ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# Linux
+*~
+.directory
+
+# --- IDE 配置文件 ---
+# JetBrains (IntelliJ/PyCharm等)
+.idea/
+*.iml
+*.ipr
+*.iws
+# VS Code
+.vscode/
+!.vscode/settings.json
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# --- 编译产物与依赖 ---
+# 通用编译文件
+*.class
+*.exe
+*.dll
+*.so
+*.pyc
+__pycache__/
+# Node.js
+node_modules/
+npm-debug.log*
+# Java
+target/
+build/
+*.jar
+*.war
+*.ear
+# Python
+venv/
+*.egg-info/
+.pytest_cache/
+
+# --- 日志与调试文件 ---
+*.log
+*.log.*
+*.tmp
+*.swp
+*.swo
+
+# --- 测试与覆盖率报告 ---
+.coverage
+htmlcov/
+test-reports/
+*.xml
+
+# --- 环境与配置文件（需谨慎处理）---
+.env
+.env.local
+*.config
+secrets.yml
+
+# --- 文档生成文件 ---
+docs/_build/
+site/
+
+# 忽略根目录下的temp文件夹，但允许子目录中的temp
+/tmp/
+
+# 强制跟踪空文件夹（添加占位文件）
+!.gitkeep
+
+# 忽略数据集文件夹
+datasets/*
